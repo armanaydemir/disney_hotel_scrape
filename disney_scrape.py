@@ -102,8 +102,12 @@ for date_index in range(0, len(checkin_dates)):
         try:
             name = hotel.find_element(By.CLASS_NAME, 'cardName').text.strip()
             rate = hotel.find_element(By.CLASS_NAME, 'bestValuePrice').text.strip()  # Example class name, adjust as needed
-            data.append({'Hotel': name, 'Rate': rate, 'Price': rate.split('\n')[1], 'CheckIn': checkin, 'CheckOut': checkout})
-            print({'Hotel': name, 'Rate': rate, 'Price': rate.split('\n')[1], 'CheckIn': checkin, 'CheckOut': checkout})
+            if("save" in rate.lower()):
+                price = rate.split('\n')[2]
+            else:
+                price = rate.split('\n')[1]
+            data.append({'Hotel': name, 'Rate': rate, 'Price': price, 'CheckIn': checkin, 'CheckOut': checkout})
+            print({'Hotel': name, 'Rate': rate, 'Price': price, 'CheckIn': checkin, 'CheckOut': checkout})
         except: 
             print("failed")
 
